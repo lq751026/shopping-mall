@@ -19,6 +19,11 @@
         <module>member</module>
         <module>order</module>
         <module>ware</module>
+        <module>renren-fast</module>
+        <module>product</module>
+        <module>renren-generator</module>
+        <module>gulimall-common</module>
+        <module>gulimall-common</module> <!--加入自动生成的代码-->
     </modules>
     <properties>
         <java.version>1.8</java.version>
