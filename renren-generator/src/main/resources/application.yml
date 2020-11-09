@@ -1,15 +1,13 @@
 server:
   port: 80
-  tomcat:
-    uri-encoding: utf-8
-# mysql
 
+# mysql
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     #MySQL配置
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.43.60:3306/gulimall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.43.60:3306/gulimall_wms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
     #oracle配置
@@ -20,7 +18,7 @@ spring:
     #SQLServer配置
     #    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     #    url: jdbc:sqlserver://192.168.10.10:1433;DatabaseName=renren_fast
-    #    username: sa
+    #    username: sau
     #    password: 123456
     #PostgreSQL配置
   #    driverClassName: org.postgresql.Driver

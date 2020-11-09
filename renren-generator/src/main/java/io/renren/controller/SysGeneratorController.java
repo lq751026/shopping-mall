@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -41,9 +39,7 @@ public class SysGeneratorController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	public R list(@RequestParam Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("application/octet-stream; charset=UTF-8");
+	public R list(@RequestParam Map<String, Object> params){
 		PageUtils pageUtil = sysGeneratorService.queryList(new Query(params));
 		
 		return R.ok().put("page", pageUtil);
