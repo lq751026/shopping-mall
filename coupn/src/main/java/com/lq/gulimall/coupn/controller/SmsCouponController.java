@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import com.lq.gulimall.coupn.entity.SmsCouponEntity;
@@ -22,10 +24,22 @@ import io.renren.common.utils.R;
  * @date 2020-11-09 19:29:45
  */
 @RestController
+@RefreshScope  //动态刷新nacos的配置文件
 @RequestMapping("coupn/smscoupon")
 public class SmsCouponController {
     @Autowired
     private SmsCouponService smsCouponService;
+
+    @Value("${lq.user.name}")
+    private  String name;
+
+    @Value("${lq.user.age}")
+    private String age;
+
+    @RequestMapping("/test")
+    public R test(){
+         return new R().ok().put("name",name).put("age",age);
+    }
 
     @GetMapping("member/list")
     public R membercounpone(){

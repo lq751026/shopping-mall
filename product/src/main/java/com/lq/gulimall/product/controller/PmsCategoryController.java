@@ -1,6 +1,7 @@
 package com.lq.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -32,13 +33,12 @@ public class PmsCategoryController {
     private PmsCategoryService pmsCategoryService;
 
     /**
-     * 列表
+     *查出所有分类以及分类 以树形结构组装起来
      */
-    @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = pmsCategoryService.queryPage(params);
-
-        return R.ok().put("page", page);
+    @RequestMapping("/list/tree")
+    public R list(){
+       List<PmsCategoryEntity> list= pmsCategoryService.listWithThree();
+        return R.ok().put("page", list);
     }
 
 
