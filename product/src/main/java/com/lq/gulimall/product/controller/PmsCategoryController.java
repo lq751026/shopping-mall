@@ -38,7 +38,7 @@ public class PmsCategoryController {
     @RequestMapping("/list/tree")
     public R list(){
        List<PmsCategoryEntity> list= pmsCategoryService.listWithThree();
-        return R.ok().put("page", list);
+        return R.ok().put("data", list);
     }
 
 
@@ -49,7 +49,7 @@ public class PmsCategoryController {
     public R info(@PathVariable("catId") Long catId){
 		PmsCategoryEntity pmsCategory = pmsCategoryService.getById(catId);
 
-        return R.ok().put("pmsCategory", pmsCategory);
+        return R.ok().put("data", pmsCategory);
     }
 
     /**
@@ -73,13 +73,25 @@ public class PmsCategoryController {
     }
 
     /**
+     * 批量修改
+     */
+    @RequestMapping("/update/sort")
+    public R updateSprt(@RequestBody PmsCategoryEntity[] pmsCategory){
+        pmsCategoryService.updateBatchById(Arrays.asList(pmsCategory));
+        return R.ok();
+    }
+
+
+    /**
      * 删除
+     * @RequestBody  获取请求体   必须发送post请求体
+     * spring Mvc 自动将
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] catIds){
 		pmsCategoryService.removeByIds(Arrays.asList(catIds));
-
-        return R.ok();
+		pmsCategoryService.removerMeunByIds(Arrays.asList(catIds));
+        return R.ok().put("msg","成功");
     }
 
 }

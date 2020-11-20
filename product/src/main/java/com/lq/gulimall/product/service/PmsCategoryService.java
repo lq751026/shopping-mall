@@ -19,5 +19,7 @@ public interface PmsCategoryService extends IService<PmsCategoryEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     List<PmsCategoryEntity> listWithThree();
+
+    void removerMeunByIds(List<Long> asList);
 }
 

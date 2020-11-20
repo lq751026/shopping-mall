@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key: LTAI4G6xrsBMiiWNhyRn8ZyU
+      secret-key: z2pzw1Q01r9hoD6VCIGjGoJhIx20Hg
+      oss:
+        endpoint: oss-cn-chengdu.aliyuncs.com
+        bucket: gulimall-shoping
+  datasource:
+    druid:
+      username: root
+      password: root
+      url: jdbc:mysql://120.26.172.176:3306/gulimall_pms
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: gulimall-thrid-party
+
+server:
+  port: 30000

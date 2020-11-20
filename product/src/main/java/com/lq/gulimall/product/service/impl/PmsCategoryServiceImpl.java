@@ -47,7 +47,16 @@ public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryDao, PmsCateg
 
         return collect;
     }
-     //递归查找所有菜单的子菜单
+
+    @Override
+    public void removerMeunByIds(List<Long> asList) {
+        //ToDo
+
+        //逻辑删除
+        baseMapper.deleteBatchIds(asList);
+    }
+
+    //递归查找所有菜单的子菜单
     private List<PmsCategoryEntity> getChider(PmsCategoryEntity root,List<PmsCategoryEntity> all){
         List<PmsCategoryEntity> collect = all.stream().filter(categoryEntity -> {
             return categoryEntity.getParentCid() == root.getCatId();
