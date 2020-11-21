@@ -8,6 +8,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 /**
  *
+ *
+ *    数据校验 JSR303
+ *    1.给bean 添加教养注解
  */
 public class ProductSpringBoot {
     public static void main(String[] args) {
