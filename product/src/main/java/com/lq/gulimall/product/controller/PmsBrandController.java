@@ -88,7 +88,7 @@ public class PmsBrandController {
      */
     @RequestMapping("/update")
     public R update(@Validated(value = {UpdateGroup.class}) @RequestBody PmsBrandEntity pmsBrand){
-		pmsBrandService.updateById(pmsBrand);
+		pmsBrandService.updateDetail(pmsBrand);
 
         return R.ok();
     }

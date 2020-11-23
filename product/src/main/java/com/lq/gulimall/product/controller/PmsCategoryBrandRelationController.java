@@ -1,15 +1,14 @@
 package com.lq.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.lq.gulimall.product.entity.PmsCategoryBrandRelationEntity;
 import com.lq.gulimall.product.service.PmsCategoryBrandRelationService;
@@ -41,6 +40,19 @@ public class PmsCategoryBrandRelationController {
         return R.ok().put("page", page);
     }
 
+    /**
+     * 列表
+     */
+    //@RequestMapping("/catelog/list")
+     @GetMapping("/catelog/list")
+    public R list(@RequestParam("brandId")Long brandId){
+        List<PmsCategoryBrandRelationEntity> list = pmsCategoryBrandRelationService.list(
+                new QueryWrapper<PmsCategoryBrandRelationEntity>().eq("brand_id", brandId));
+
+        return R.ok().put("page", list);
+    }
+
+
 
     /**
      * 信息
@@ -57,7 +69,7 @@ public class PmsCategoryBrandRelationController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody PmsCategoryBrandRelationEntity pmsCategoryBrandRelation){
-		pmsCategoryBrandRelationService.save(pmsCategoryBrandRelation);
+		pmsCategoryBrandRelationService.saveDetail(pmsCategoryBrandRelation);
 
         return R.ok();
     }

@@ -3,6 +3,7 @@ package com.lq.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.lq.gulimall.product.service.PmsCategoryService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,8 @@ import io.renren.common.utils.R;
 public class PmsAttrGroupController {
     @Autowired
     private PmsAttrGroupService pmsAttrGroupService;
+    @Autowired
+    private PmsCategoryService categoryService;
 
     /**
      * 列表
@@ -48,7 +51,9 @@ public class PmsAttrGroupController {
     @RequestMapping("/info/{attrGroupId}")
     public R info(@PathVariable("attrGroupId") Long attrGroupId){
 		PmsAttrGroupEntity pmsAttrGroup = pmsAttrGroupService.getById(attrGroupId);
-
+        Long catelogId = pmsAttrGroup.getCatelogId();
+        Long [] path= categoryService.findCatelogPath(catelogId);
+        pmsAttrGroup.setCatelogPath(path);
         return R.ok().put("pmsAttrGroup", pmsAttrGroup);
     }
 

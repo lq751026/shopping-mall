@@ -2,6 +2,9 @@ package com.lq.gulimall.product.service.impl;
 
 import com.mysql.cj.util.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -29,21 +32,22 @@ public class PmsAttrGroupServiceImpl extends ServiceImpl<PmsAttrGroupDao, PmsAtt
 
     @Override
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
+        String key = (String) params.get("key");
+        QueryWrapper<PmsAttrGroupEntity> wrapper=new QueryWrapper<PmsAttrGroupEntity>();
+        if(!StringUtils.isNullOrEmpty(key)){
+            wrapper.and((obj)->{
+                obj.eq("attr_group_id",key).or().like("attr_group_name",key);
+            });
+        }
          if(catelogId==0){
              IPage<PmsAttrGroupEntity> page = this.page(new Query<PmsAttrGroupEntity>().getPage(params),
-                     new QueryWrapper<PmsAttrGroupEntity>());
+                     wrapper);
              return new PageUtils(page);
          }else{
-             String key = (String) params.get("key");
-             QueryWrapper<PmsAttrGroupEntity> wrapper=new QueryWrapper<PmsAttrGroupEntity>().eq("catelog_id",catelogId);
-             if(!StringUtils.isNullOrEmpty(key)){
-               wrapper.and((obj)->{
-                  obj.eq("attr_group_id",key).or().like("attr_group_name",key);
-               });
-             }IPage<PmsAttrGroupEntity> page=this.page(new Query<PmsAttrGroupEntity>().getPage(params),
+            wrapper.eq("catelog_id",catelogId);
+             IPage<PmsAttrGroupEntity> page=this.page(new Query<PmsAttrGroupEntity>().getPage(params),
                      wrapper);
              return new PageUtils(page);
          }
     }
-
 }

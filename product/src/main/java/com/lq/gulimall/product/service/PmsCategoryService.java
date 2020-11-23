@@ -21,5 +21,9 @@ public interface PmsCategoryService extends IService<PmsCategoryEntity> {
     List<PmsCategoryEntity> listWithThree();
 
     void removerMeunByIds(List<Long> asList);
+
+    Long[] findCatelogPath(Long catelogId);
+
+    void updatecade(PmsCategoryEntity pmsCategory);
 }
 

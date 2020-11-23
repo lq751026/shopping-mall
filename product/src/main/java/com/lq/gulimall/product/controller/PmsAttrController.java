@@ -3,6 +3,7 @@ package com.lq.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.lq.gulimall.product.service.PmsAttrGroupService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,8 @@ import io.renren.common.utils.R;
 public class PmsAttrController {
     @Autowired
     private PmsAttrService pmsAttrService;
+    @Autowired
+    private PmsAttrGroupService pmsAttrGroupService;
 
     /**
      * 列表
@@ -38,6 +41,15 @@ public class PmsAttrController {
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = pmsAttrService.queryPage(params);
 
+        return R.ok().put("page", page);
+    }
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/base/list/{catId}")
+    public R basElist(@RequestParam Map<String, Object> params,@PathVariable("catId")Long catId){
+        PageUtils page=  pmsAttrGroupService.queryPage(params,catId);
         return R.ok().put("page", page);
     }
 

@@ -1,7 +1,12 @@
 package com.lq.gulimall.product.service.impl;
 
+import com.lq.gulimall.product.entity.PmsAttrGroupEntity;
+import com.lq.gulimall.product.service.PmsCategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,6 +24,8 @@ import com.lq.gulimall.product.service.PmsCategoryService;
 
 @Service("pmsCategoryService")
 public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryDao, PmsCategoryEntity> implements PmsCategoryService {
+      @Autowired
+      private PmsCategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -70,5 +77,33 @@ public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryDao, PmsCateg
         }).collect(Collectors.toList());
         return collect;
     }
+    //找到catelogId的完整路径
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths=new ArrayList<>();
+        List<Long> longs = findParentPath(catelogId, paths);
+        Collections.reverse(longs);
+        return longs.toArray(new Long[longs.size()]);
+    }
 
+
+    private List<Long> findParentPath(Long cateId,List<Long> paths){
+        //收集当前节点的id
+        paths.add(cateId);
+        PmsCategoryEntity byId = this.getById(cateId);
+        if(byId.getParentCid()!=0){
+            findParentPath(byId.getParentCid(),paths);
+        }
+        return paths;
+    }
+
+
+    /**
+     *  级联更新
+     * @param pmsCategory
+     */
+    @Override
+    public void updatecade(PmsCategoryEntity pmsCategory) {
+       categoryBrandRelationService.updateCategory(pmsCategory.getCatId(),pmsCategory.getName());
+    }
 }

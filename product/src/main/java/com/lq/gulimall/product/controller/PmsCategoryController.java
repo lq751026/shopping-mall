@@ -67,7 +67,8 @@ public class PmsCategoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody PmsCategoryEntity pmsCategory){
-		pmsCategoryService.updateById(pmsCategory);
+        pmsCategoryService.updateById(pmsCategory);
+		pmsCategoryService.updatecade(pmsCategory);
 
         return R.ok();
     }
